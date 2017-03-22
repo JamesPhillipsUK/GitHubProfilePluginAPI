@@ -14,10 +14,11 @@ There are other plugins that do this, but they often come in the form of: excess
  - Libre and open-source software
 
 ### Installation
-1. Take the first block of code from: `<?php` to `?>`, and paste it into your website, just after your `<head>` tag.
-2. Generate a Personal Access Token on GitHub.com, and find the two instances of `INSERT YOUR TOKEN HERE` in what you've just pasted, and replace them with our token.
-3. Pick a spot on your web page where you'd like to see the GitHub Plugin appear.  Paste the rest of the code there.
-4. Save it and open up your page.
+1. Take the first block of code from: `<?php` to `?>`, and paste it into your web page, just after your `<head>` HTML tag.
+2. Generate a Personal Access Token on GitHub.com, and find the two instances of `INSERT YOUR TOKEN HERE` in what you've just pasted, and replace them with your token.
+3. Find the instance of `YOUR GITHUB USERNAME` in what you've just pasted, and replace it with your GitHub username.
+4. Pick a spot on your web page where you'd like to see the GitHub Plugin appear.  Paste the rest of the code there.
+5. Save it and open up your page.
 
 ## Let's see it then...
 ![Narrow View](https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Screenshot%20(14).png)
