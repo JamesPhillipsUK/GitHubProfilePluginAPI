@@ -30,7 +30,7 @@
 	
 	function CallGitHubRepos() //this function pulls the user's GitHub repository data
 	{
-		$GitHubURL = "https://api.github.com/users/JamesPhillipsUK/repos"; //the GitHub URL for the user's repos
+		$GitHubURL = "https://api.github.com/users/YOUR GITHUB USERNAME/repos"; //the GitHub URL for the user's repos
 		$GitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token INSERT YOUR TOKEN HERE',); //insert your personal access token
 		$GitHubcURL = curl_init(); //initialize cURL
 		if(curl_error($GitHubcURL))
