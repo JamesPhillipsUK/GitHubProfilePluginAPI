@@ -9,7 +9,7 @@ There are other plugins that do this, but they often come in the form of: excess
  - Runs entirely on Server-Side
  - Your choice of Bootstrap 3, Bootstrap 4, or your own CSS
  - Can be modified for GitHub Organizations
- - PHP 5 or 7, HTML5.1, and CSS3 compatible
+ - PHP 5 or 7, HTML5.x, and CSS3 compatible
  - Professional and responsive design
  - Secure data transfer through Personal Access Keys and the GitHub API
  - Easy Setup
