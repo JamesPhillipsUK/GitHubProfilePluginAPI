@@ -3,7 +3,7 @@
  *
  * GitHub Profile Web App, Version 2.0.0, Bootstrap 3 variant
  *
- * GitHub Profile Web Appis designed to give a rundown of your GitHub Profile on your PHP Website
+ * GitHub Profile Web App is designed to give a rundown of your GitHub Profile on your PHP Website
  * Copyright (C) 2017, 2018  James Phillips <james@jamesphillipsuk.com>
  * 
  * This program is free software: you can redistribute it and/or modify
