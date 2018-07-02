@@ -7,22 +7,24 @@ There are other plugins that do this, but they often come in the form of: excess
 
 ### Features
  - Runs entirely on Server-Side
- - PHP 5, HTML5.1, and CSS3 compatible
+ - Your choice of Bootstrap 3, Bootstrap 4, or your own CSS
+ - Can be modified for GitHub Organizations
+ - PHP 5 or 7, HTML5.x, and CSS3 compatible
  - Professional and responsive design
  - Secure data transfer through Personal Access Keys and the GitHub API
  - Easy Setup
  - Libre and open-source software
 
 ### Installation
-1. Take the first block of code from: `<?php` to `?>`, and paste it into your web page, just after your `<head>` HTML tag.
-2. Generate a Personal Access Token on GitHub.com, and find the two instances of `INSERT YOUR TOKEN HERE` in what you've just pasted, and replace them with your token.
-3. Find the instance of `YOUR GITHUB USERNAME` in what you've just pasted, and replace it with your GitHub username.
-4. Pick a spot on your web page where you'd like to see the GitHub Plugin appear.  Paste the rest of the code there.
+0. Choose the version you want, and open GitHub-Profile-Web-App.php in your text editor or IDE of choice.
+1. Take the first block of code from: `<?php` on line 1 to `?>` on line 72, and paste it into your web page, just after your `<head>` HTML tag.
+2. Generate a Personal Access Token on GitHub.com, and paste it into the space provided on line 25.
+3. Paste your GitHub Username into the space provided on line 26.
+4. Pick a spot on your web page where you'd like to see the plugin appear.  Paste the rest of the code there.
 5. Save it and open up your page.
 
 ## Let's see it then...
-![Narrow View](https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Screenshot%20(14).png)
-![Wide View](https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Screenshot%20(15).png)
+<table><tr><td><img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Example1.PNG" alt="Example One" /></td><td><img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Example2.PNG" alt="Example Two" /></td></tr></table>
 
 ## Contact Me!
-Should you wish to contact me, you can find me at: [jamesphillipsuk.com/Contact](http://jamesphillipsuk.com/Contact/ "Contact me!").
+Should you wish to contact me, you can find me at: [jamesphillipsuk.com/Contact](https://jamesphillipsuk.com/contact "Contact me!").
