@@ -22,18 +22,18 @@ namespace GitHubProfileAPI
 {
  class core
   {
-    private $personalAccessToken;
-    private $gitHubUsername;
+    private $personalAccessToken = "";
+    private $gitHubUsername = "";
     public function __construct($personalAccessToken, $gitHubUsername)// Constructor.
     {
-      $this->$personalAccessToken = $personalAccessToken;
-      $this->$gitHubUsername = $gitHubUsername;
+      $this->personalAccessToken = $personalAccessToken;
+      $this->gitHubUsername = $gitHubUsername;
     }
-    
+
     private function CallGitHub()// This function pulls the user's GitHub Profile data.
     {
       $gitHubURL = "https://api.github.com/user";// Pull your user data from GitHub.
-      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token ' . $personalAccessToken . '',);
+      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token ' . $this->personalAccessToken . '',);
       $gitHubcURL = curl_init();// Initialize cURL.
       if(curl_error($gitHubcURL))
         echo 'error: ' . curl_error( $gitHubcURL);// Executes if GitHub dies, or cURL dies.
@@ -48,8 +48,8 @@ namespace GitHubProfileAPI
 
     private function CallGitHubRepos()// This function pulls the user's GitHub repository data.
     {
-      $gitHubURL = "https://api.github.com/users/" . $gitHubUsername . "/repos";// The GitHub URL for the user's repos.
-      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token ' . $personalAccessToken . '',);// Insert your personal access token.
+      $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
+      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
       $gitHubcURL = curl_init();// Initialize cURL.
       if(curl_error($gitHubcURL))
         echo 'error: ' . curl_error($gitHubcURL);// Executes if GitHub dies, or cURL dies.
@@ -69,8 +69,8 @@ namespace GitHubProfileAPI
 
     public function show()
     {
-      $repos = CallGitHubRepos();
-      $gitHubJSON = CallGitHub();// Grab the return value of CallGitHub().
+      $repos = $this->CallGitHubRepos();
+      $gitHubJSON = $this->CallGitHub();// Grab the return value of CallGitHub().
       $gitHubName = $gitHubJSON->name;// Save the name to use later.
       $gitHubCompany = $gitHubJSON->company;// Save the company to use later.
       $gitHubHTMLURL = $gitHubJSON->html_url;// Save the profile url to use later.
@@ -83,7 +83,7 @@ namespace GitHubProfileAPI
       $languageData = Array();
       foreach($repos as $data)
       {
-        if($data->archived == false && $data->disabled == false && $data->language != "HTML")
+        if($data->archived == false && $data->disabled == false)
         {
           if(array_key_exists($data->language, $languageData))
             $languageData[$data->language] += $data->size;
@@ -105,8 +105,8 @@ namespace GitHubProfileAPI
           break;
       }
       $popularLanguages .= "</p>";
-      usort($repos, "repoSort");
-      buildUI($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos);
+      usort($repos, array($this, "repoSort"));
+      $this->buildUI($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos);
     }
 
     private function buildUI($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos)
