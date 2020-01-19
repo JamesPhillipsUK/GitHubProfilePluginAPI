@@ -49,7 +49,7 @@ namespace GitHubProfileAPI
     private function CallGitHubRepos()// This function pulls the user's GitHub repository data.
     {
       $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
-      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
+      $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfileAPI','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
       $gitHubcURL = curl_init();// Initialize cURL.
       if(curl_error($gitHubcURL))
         echo 'error: ' . curl_error($gitHubcURL);// Executes if GitHub dies, or cURL dies.

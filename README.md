@@ -11,19 +11,21 @@ A fully-responsive PHP 7 API to display a breakdown of a user's GitHub profile o
 
 ## Installation
 
-1. Save the GitHubProfileAPI Directory
-2. Create an instance of the API on the page where you'll be displaying your profile.
+1. Generate a Personal Access Token for GitHub
+2. Save the GitHubProfileAPI Directory
+3. Create an instance of the API on the page where you'll be displaying your profile.
 
 ```PHP
 <?php
 include("GitHubProfileAPI/core.php");// Include the  API.
 use GitHubProfileAPI\core as API;// Access the API.
 
+// Please store your Personal Access Token and Username outside of a web-accessible directory and call them with a script so malicious users can't get them.  Above the web root or in a file blocked by your htaccess rules are common choices.
 $api = new API("Personal Access Token", "Username");// Create an instance of the Statistics.
 ?>
 ```
 
-3. Show the profile breakdown wherever you want it.
+4. Show the profile breakdown wherever you want it.
 
 ```PHP
 ...
@@ -45,10 +47,11 @@ $api = new API("Personal Access Token", "Username");// Create an instance of the
 
 <table>
   <tr>
-  <td width="25%">&nbsp;</td>
+    <td width="25%">&nbsp;</td>
     <td width="50%">
       <img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Example.png" alt="Example" />
     </td>
+    <td width="25%">&nbsp;</td>
   </tr>
 </table>
 
