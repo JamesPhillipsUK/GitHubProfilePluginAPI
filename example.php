@@ -1,9 +1,9 @@
 <?php
 /**
- * This file contains an example of how GitHubProfileAPI can be used.
+ * This file contains an example of how GitHubProfilePluginAPI can be used.
  **/
-include("GitHubProfileAPI/core.php");// Include the  API.
-use GitHubProfileAPI\core as API;// Access the API.
+include("GitHubProfilePluginAPI/core.php");// Include the  API.
+use GitHubProfilePluginAPI\core as API;// Access the API.
 
 // Please store your Personal Access Token and Username outside of a web-accessible directory and call them with a script so malicious users can't get them.  Above the web root or in a file blocked by your htaccess rules are common choices.
 $api = new API("Personal Access Token", "Username");// Create an instance of the Statistics.

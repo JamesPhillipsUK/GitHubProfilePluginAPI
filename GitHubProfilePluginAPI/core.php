@@ -1,8 +1,8 @@
 <?php
 /**
- * GitHub Profile API, Version 2.1.0.
+ * GitHub Profile Plugin API, Version 2.1.0.
  *
- * GitHub Profile API is designed to give a rundown of your GitHub Profile on your PHP Website
+ * GitHub Profile Plugin API is designed to give a rundown of your GitHub Profile on your PHP Website
  * Copyright (C) 2017 - 2020  James Phillips <james@jamesphillipsuk.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
-namespace GitHubProfileAPI
+namespace GitHubProfilePluginAPI
 {
  class core
   {
@@ -33,7 +33,7 @@ namespace GitHubProfileAPI
     private function CallGitHub()// This function pulls the user's GitHub Profile data.
     {
       $gitHubURL = "https://api.github.com/user";// Pull your user data from GitHub.
-      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubPHPApp','Authorization: token ' . $this->personalAccessToken . '',);
+      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);
       $gitHubcURL = curl_init();// Initialize cURL.
       if(curl_error($gitHubcURL))
         echo 'error: ' . curl_error( $gitHubcURL);// Executes if GitHub dies, or cURL dies.
@@ -49,7 +49,7 @@ namespace GitHubProfileAPI
     private function CallGitHubRepos()// This function pulls the user's GitHub repository data.
     {
       $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
-      $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfileAPI','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
+      $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
       $gitHubcURL = curl_init();// Initialize cURL.
       if(curl_error($gitHubcURL))
         echo 'error: ' . curl_error($gitHubcURL);// Executes if GitHub dies, or cURL dies.
