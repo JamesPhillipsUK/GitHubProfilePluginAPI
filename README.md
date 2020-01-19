@@ -1,26 +1,49 @@
 # GitHub Profile API
 
-A fully-responsive PHP 7 API to show your GitHub user profile on your website.
+A fully-responsive PHP 7 API to display a breakdown of a user's GitHub profile on a webpage.
 
-## What and Why
-
-The idea behind this is simple.  All good GitHubbers deserve a way to efficiently and professionally link their profile into their personal website.  The obvious way to do this is with a plugin that can sit on any PHP page on your site, and show your GitHubbing prowess off to visitors.
-There are other plugins that do this, but they often come in the form of: excessive amounts of JavaScript to slow your viewers computers to a halt, or they aren't fully responsive and don't fit your site.  This solves both of these issues for you.  It's PHP, so it runs on the server-side, and it's fully resopnsive and HTML5.1-compliant.
-
-### Features
+## Features
 
 - Runs entirely on Server-Side.
 - Responsive design with Bootstrap 4.
 - Secure data transfer through Personal Access Keys and the GitHub API.
 - Easy Setup.
 
-### Installation
+## Installation
 
-1. TEXT GOES HERE
+1. Save the GitHubProfileAPI Directory
+2. Create an instance of the API on the page where you'll be displaying your profile.
+
+```PHP
+<?php
+include("GitHubProfileAPI/core.php");// Include the  API.
+use GitHubProfileAPI\core as API;// Access the API.
+
+$api = new API("Personal Access Token", "Username");// Create an instance of the Statistics.
+?>
+```
+
+3. Show the profile breakdown wherever you want it.
+
+```PHP
+...
+  <div class="container">
+    <div class="col-10 offset-1">
+<?php $api->show(); ?>
+    </div>
+  </div>
+...
+```
+
+## System Requirements
+
+- PHP 7 or above.
+- Bootstrap 4.4 or above.
+- FontAwesome 5.11 or above.
 
 ## Bug-finding
 
-I hope you don't have too many problems with GitHub-Profile-API, but as with everything in it's early stages there may be some teething problems.  If you do find any bugs, please report them as issues in the GitHub repo, no matter how small.
+I hope you don't have too many problems with the GitHub Profile API.  But - if you do find any bugs, please report them as issues in the GitHub repo, no matter how small.
 
 ### More From me
 
