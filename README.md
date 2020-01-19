@@ -41,6 +41,17 @@ $api = new API("Personal Access Token", "Username");// Create an instance of the
 - Bootstrap 4.4 or above.
 - FontAwesome 5.11 or above.
 
+## Example
+
+<table>
+  <tr>
+  <td width="25%">&nbsp;</td>
+    <td width="50%">
+      <img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Example.png" alt="Example" />
+    </td>
+  </tr>
+</table>
+
 ## Bug-finding
 
 I hope you don't have too many problems with the GitHub Profile API.  But - if you do find any bugs, please report them as issues in the GitHub repo, no matter how small.
