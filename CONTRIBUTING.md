@@ -1,4 +1,4 @@
-# Contributing to this GitHub Profile Plugin API
+# Contributing to the GitHub Profile Plugin API
 
 ## How we Talk
 

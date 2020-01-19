@@ -42,7 +42,7 @@ namespace GitHubProfilePluginAPI
      **/
     private function call_github()
     {
-      $gitHubURL = "https://api.github.com/user";// Pull your user data from GitHub.
+      $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername;// Pull your user data from GitHub.
       $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);
       $gitHubcURL = curl_init();// Initialize cURL.
       if(curl_error($gitHubcURL))

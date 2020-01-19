@@ -2,7 +2,7 @@
 /**
  * This file contains an example of how GitHubProfilePluginAPI can be used.
  **/
-include("GitHubProfilePluginAPI/core.php");// Include the  API.
+include("GitHubProfilePluginAPI/core.php");// Include the API.
 use GitHubProfilePluginAPI\core as API;// Access the API.
 
 // Please store your Personal Access Token and Username outside of a web-accessible directory and call them with a script so malicious users can't get them.  Above the web root or in a file blocked by your htaccess rules are common choices.
@@ -17,11 +17,13 @@ $api = new API("Personal Access Token", "Username");// Create an instance of the
   <title>My GitHub Profile</title>
 </head>
 <body>
+  <br />
   <div class="container">
-    <div class="col-10 offset-1">
+    <div class="col-12 col-sm-10 offset-sm-1">
 <?php $api->show(); ?>
     </div>
   </div>
+  <br />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
