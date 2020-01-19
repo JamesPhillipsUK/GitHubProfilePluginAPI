@@ -24,13 +24,23 @@ namespace GitHubProfilePluginAPI
   {
     private $personalAccessToken = "";
     private $gitHubUsername = "";
-    public function __construct($personalAccessToken, $gitHubUsername)// Constructor.
+
+    /**
+     * Constructor for the core API class.
+     * @param personalAccessToken - the user's GitHub Personal Access Token.
+     * @param gitHubUsername - the user's GitHub Username.
+     **/
+    public function __construct($personalAccessToken, $gitHubUsername)
     {
       $this->personalAccessToken = $personalAccessToken;
       $this->gitHubUsername = $gitHubUsername;
     }
 
-    private function CallGitHub()// This function pulls the user's GitHub Profile data.
+    /**
+     * This function pulls the user's GitHub Profile data.
+     * @return gitHubJSON - The data as JSON.
+     **/
+    private function call_github()
     {
       $gitHubURL = "https://api.github.com/user";// Pull your user data from GitHub.
       $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);
@@ -46,7 +56,11 @@ namespace GitHubProfilePluginAPI
       return $gitHubJSON;// Return the decoded JSON.
     }
 
-    private function CallGitHubRepos()// This function pulls the user's GitHub repository data.
+    /**
+     * This function pulls the user's GitHub repository data.
+     * @return gitHubJSON - The data as JSON.
+     **/
+    private function call_github_repos()
     {
       $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
       $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
@@ -62,15 +76,25 @@ namespace GitHubProfilePluginAPI
       return $gitHubJSON;// Return the value of the decoded JSON data.
     }
 
-    private function repoSort($a, $b)
+    /**
+     * A recursive array sorting algorithm used by usort in show().
+     * Sorts two repos by most recent push.
+     * @param a - one repo structure.
+     * @param b - another repo structure.
+     * @return array - The repos.
+     **/
+    private function repo_sort($a, $b)
     {
       return ($a->pushed_at > $b->pushed_at) ? -1 : 1;
     }
 
+    /**
+     * Collates all of the necessary data to build the plugin, and calls build_ui() to do so.
+     **/
     public function show()
     {
-      $repos = $this->CallGitHubRepos();
-      $gitHubJSON = $this->CallGitHub();// Grab the return value of CallGitHub().
+      $repos = $this->call_github_repos();
+      $gitHubJSON = $this->call_github();// Grab the return value of call_github().
       $gitHubName = $gitHubJSON->name;// Save the name to use later.
       $gitHubCompany = $gitHubJSON->company;// Save the company to use later.
       $gitHubHTMLURL = $gitHubJSON->html_url;// Save the profile url to use later.
@@ -105,11 +129,25 @@ namespace GitHubProfilePluginAPI
           break;
       }
       $popularLanguages .= "</p>";
-      usort($repos, array($this, "repoSort"));
-      $this->buildUI($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos);
+      usort($repos, array($this, "repo_sort"));
+      $this->build_ui($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos);
     }
 
-    private function buildUI($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos)
+    /**
+     * Builds the Plugin UI.
+     * @param gitHubAvatarURL - the user's avatar as a URL.
+     * @param gitHubBio - the user's GitHub bio.
+     * @param gitHubCompany - the user's primary company on GitHub, if any.
+     * @param gitHubFollowers - the number of followers the user has on GitHub.
+     * @param gitHubFollowing - the number of people the user is following on GitHub.
+     * @param gitHubHTMLURL - the user's profile URL on GitHub.
+     * @param gitHubLogin - the user's GitHub Login name.
+     * @param gitHubName - the user's GitHub given name.
+     * @param gitHubPubRepos - the number of public repos the user has on GitHub.
+     * @param popularLanguages - a list of the user's most popular languages on GitHub.
+     * @param repos - an ordered array of the user's public repos.
+     **/
+    private function build_ui($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos)
     {
       echo "<style>
 #GitHubAPI{margin: 0 auto;}
@@ -149,7 +187,7 @@ namespace GitHubProfilePluginAPI
         </div>
       </div>
       <div class='repos'>
-        <p><strong>Active Public Repos: </strong></p>";// Echo out the values we saved in the CallGitHub() function as fromatted HTML and CSS.
+        <p><strong>Active Public Repos: </strong></p>";// Echo out the values we saved in the call_github() function as fromatted HTML and CSS.
       foreach($repos as $data)
       {
         if($data->archived == false && $data->disabled == false)
