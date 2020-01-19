@@ -1,30 +1,66 @@
-# GitHub Profile Web App
-A fully-responsive PHP &amp; HTML5 Plugin to show your GitHub user profile on your website.
+# GitHub Profile Plugin API
 
-## What and Why?
-The idea behind this is simple.  All good GitHubbers deserve a way to efficiently and professionally link their profile into their personal website.  The obvious way to do this is with a plugin that can sit on any PHP page on your site, and show your GitHubbing prowess off to visitors.
-There are other plugins that do this, but they often come in the form of: excessive amounts of JavaScript to slow your viewers computers to a halt, or they aren't fully responsive and don't fit your site.  This solves both of these issues for you.  It's PHP, so it runs on the server-side, and it's fully resopnsive and HTML5.1-compliant.
+This PHP 7 API provides a fully-responsive website plugin featuring a breakdown of a given user's GitHub profile.
+It uses PHP 7 for the backend, and Bootstrap 4 for the responsive frontend design.
 
-### Features
- - Runs entirely on Server-Side
- - Your choice of Bootstrap 3, Bootstrap 4, or your own CSS
- - Can be modified for GitHub Organizations
- - PHP 5 or 7, HTML5.x, and CSS3 compatible
- - Professional and responsive design
- - Secure data transfer through Personal Access Keys and the GitHub API
- - Easy Setup
- - Libre and open-source software
+## Features
 
-### Installation
-0. Choose the version you want, and open GitHub-Profile-Web-App.php in your text editor or IDE of choice.
-1. Take the first block of code from: `<?php` on line 1 to `?>` on line 72, and paste it into your web page, just after your `<head>` HTML tag.
-2. Generate a Personal Access Token on GitHub.com, and paste it into the space provided on line 25.
-3. Paste your GitHub Username into the space provided on line 26.
-4. Pick a spot on your web page where you'd like to see the plugin appear.  Paste the rest of the code there.
-5. Save it and open up your page.
+- Runs entirely on Server-Side.
+- Responsive design with Bootstrap 4.
+- Secure data transfer through Personal Access Keys and the GitHub API.
+- Easy Setup.
 
-## Let's see it then...
-<table><tr><td><img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Example1.PNG" alt="Example One" /></td><td><img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Images/Example2.PNG" alt="Example Two" /></td></tr></table>
+## Installation
 
-## Contact Me!
-Should you wish to contact me, you can find me at: [jamesphillipsuk.com/Contact](https://jamesphillipsuk.com/contact "Contact me!").
+1. Generate a Personal Access Token for GitHub
+2. Save the GitHubProfilePluginAPI Directory
+3. Create an instance of the API on the page where you'll be displaying your profile.
+
+```PHP
+<?php
+include("GitHubProfilePluginAPI/core.php");// Include the API.
+use GitHubProfilePluginAPI\core as API;// Access the API.
+
+// Please store your Personal Access Token and Username outside of a web-accessible directory and call them with a script so malicious users can't get them.  Above the web root or in a file blocked by your htaccess rules are common choices.
+$api = new API("Personal Access Token", "Username");// Create an instance of the Statistics.
+?>
+```
+
+4. Show the profile breakdown wherever you want it.
+
+```PHP
+...
+  <div class="container">
+    <div class="col-12 col-sm-10 offset-sm-1">
+<?php $api->show(); ?>
+    </div>
+  </div>
+...
+```
+
+## System Requirements
+
+- PHP 7 or above.
+- Bootstrap 4.4 or above.
+- FontAwesome 5.11 or above.
+
+## Example
+
+<table>
+  <tr>
+    <td width="25%">&nbsp;</td>
+    <td width="50%">
+      <img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Example.png" alt="Example" />
+    </td>
+    <td width="25%">&nbsp;</td>
+  </tr>
+</table>
+
+## Bug-finding
+
+I hope you don't have too many problems with the GitHub Profile Plugin API.  But - if you do find any bugs, please report them as issues in the GitHub repo, no matter how small.
+
+### More From me
+
+If you want to see more of what I do, you can visit: [jamesphillipsuk.com](https://jamesphillipsuk.com "My Website!").
+If you want to donate to my development efforts, you can send donations via PayPal.Me at [paypal.me/JamesPhillipsUK](https://paypal.me/JamesPhillipsUK "My PayPal.Me").
