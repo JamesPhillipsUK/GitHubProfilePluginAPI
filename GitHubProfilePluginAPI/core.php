@@ -1,9 +1,9 @@
 <?php
 /**
- * GitHub Profile Plugin API, Version 2.1.0.
+ * GitHub Profile Plugin API, Version 2.1.1.
  *
  * GitHub Profile Plugin API is designed to give a rundown of your GitHub Profile on your PHP Website
- * Copyright (C) 2017 - 2020  James Phillips <james@jamesphillipsuk.com>
+ * Copyright (C) 2017 - 2022  Jesse Phillips <james@jamesphillipsuk.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -110,9 +110,9 @@ namespace GitHubProfilePluginAPI
         if($data->archived == false && $data->disabled == false)
         {
           if(array_key_exists($data->language, $languageData))
-            $languageData[$data->language] += $data->size;
+            $languageData[$data->language] += 1;//$data->size;
           else
-            $languageData[$data->language] = $data->size;
+            $languageData[$data->language] = 1;//$data->size;
         }
       }
       arsort($languageData);
