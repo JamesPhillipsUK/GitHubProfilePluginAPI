@@ -20,11 +20,10 @@
  **/
 namespace GitHubProfilePluginAPI
 {
- class core
+  require_once("call.php");
+  class core
   {
-    private $personalAccessToken = "";
-    private $gitHubUsername = "";
-
+    private $call;
     /**
      * Constructor for the core API class.
      * @param personalAccessToken - the user's GitHub Personal Access Token.
@@ -32,48 +31,9 @@ namespace GitHubProfilePluginAPI
      **/
     public function __construct($personalAccessToken, $gitHubUsername)
     {
-      $this->personalAccessToken = $personalAccessToken;
-      $this->gitHubUsername = $gitHubUsername;
-    }
-
-    /**
-     * This function pulls the user's GitHub Profile data.
-     * @return gitHubJSON - The data as JSON.
-     **/
-    private function call_github()
-    {
-      $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername;// Pull your user data from GitHub.
-      $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);
-      $gitHubcURL = curl_init();// Initialize cURL.
-      if(curl_error($gitHubcURL))
-        echo 'error: ' . curl_error( $gitHubcURL);// Executes if GitHub dies, or cURL dies.
-      curl_setopt($gitHubcURL, CURLOPT_URL, $gitHubURL);// Connect to GitHub.
-      curl_setopt($gitHubcURL, CURLOPT_HTTPHEADER, $gitHubHeaders);// Send our authorization headers.
-      curl_setopt($gitHubcURL, CURLOPT_RETURNTRANSFER, 1);// Don't print it to the screen yet.
-      curl_setopt($gitHubcURL, CURLOPT_CUSTOMREQUEST, "GET");// Use GET to grab the data.
-      $gitHubJSON = json_decode(curl_exec($gitHubcURL));// Decode the returned JSON data.
-      curl_close( $gitHubcURL);// Close cURL.
-      return $gitHubJSON;// Return the decoded JSON.
-    }
-
-    /**
-     * This function pulls the user's GitHub repository data.
-     * @return gitHubJSON - The data as JSON.
-     **/
-    private function call_github_repos()
-    {
-      $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
-      $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
-      $gitHubcURL = curl_init();// Initialize cURL.
-      if(curl_error($gitHubcURL))
-        echo 'error: ' . curl_error($gitHubcURL);// Executes if GitHub dies, or cURL dies.
-      curl_setopt($gitHubcURL, CURLOPT_URL, $gitHubURL);
-      curl_setopt($gitHubcURL, CURLOPT_HTTPHEADER, $gitHubHeaders);// These headers are as before.
-      curl_setopt($gitHubcURL, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($gitHubcURL, CURLOPT_CUSTOMREQUEST, "GET");
-      $gitHubJSON = json_decode(curl_exec( $gitHubcURL));// Decode the response.
-      curl_close($gitHubcURL);// Close cURL.
-      return $gitHubJSON;// Return the value of the decoded JSON data.
+      $this->$call = new call();
+      $this->$call->setPersonalAccessToken($personalAccessToken);
+      $this->$call->setUsername($gitHubUsername);
     }
 
     /**
@@ -93,8 +53,8 @@ namespace GitHubProfilePluginAPI
      **/
     public function show()
     {
-      $repos = $this->call_github_repos();
-      $gitHubJSON = $this->call_github();// Grab the return value of call_github().
+      $repos = $this->$call->call_github_repos();
+      $gitHubJSON = $this->$call->call_github();// Grab the return value of call_github().
       $gitHubName = $gitHubJSON->name;// Save the name to use later.
       $gitHubCompany = $gitHubJSON->company;// Save the company to use later.
       $gitHubHTMLURL = $gitHubJSON->html_url;// Save the profile url to use later.
