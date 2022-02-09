@@ -52,7 +52,7 @@ namespace GitHubProfilePluginAPI
       $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername;// Pull your user data from GitHub.
       $gitHubHeaders = array('User-Agent: jamesphillipsuk-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);
       $gitHubcURL = curl_init();// Initialize cURL.
-      if(curl_error($gitHubcURL))
+      if (curl_error($gitHubcURL))
         echo 'error: ' . curl_error( $gitHubcURL);// Executes if GitHub dies, or cURL dies.
       curl_setopt($gitHubcURL, CURLOPT_URL, $gitHubURL);// Connect to GitHub.
       curl_setopt($gitHubcURL, CURLOPT_HTTPHEADER, $gitHubHeaders);// Send our authorization headers.
@@ -72,7 +72,7 @@ namespace GitHubProfilePluginAPI
       $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
       $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);// Insert your personal access token.
       $gitHubcURL = curl_init();// Initialize cURL.
-      if(curl_error($gitHubcURL))
+      if (curl_error($gitHubcURL))
         echo 'error: ' . curl_error($gitHubcURL);// Executes if GitHub dies, or cURL dies.
       curl_setopt($gitHubcURL, CURLOPT_URL, $gitHubURL);
       curl_setopt($gitHubcURL, CURLOPT_HTTPHEADER, $gitHubHeaders);// These headers are as before.

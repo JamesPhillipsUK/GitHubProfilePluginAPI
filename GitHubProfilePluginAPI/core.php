@@ -84,7 +84,7 @@ namespace GitHubProfilePluginAPI
      * @param numberOfRepos - Number of repos to display, 0 shows all.
      * @param numberOfLanguages - Number of languages to display, 0 shows all.
      **/
-    public function show($bootstrapVersion = 4, $numberOfRepos = 0, $numberOfLanguages = 0)
+    public function show($bootstrapVersion = 4, $numberOfRepos = 0, $numberOfLanguages = 3)
     {
       $gitHubJSON = &$this->call->call_github();// Grab the return value of call_github().
       $unsortedRepos = $this->call->call_github_repos();
@@ -98,11 +98,11 @@ namespace GitHubProfilePluginAPI
       $this->followers = $gitHubJSON->followers;// Save the number of followers to use later.
       $this->following = $gitHubJSON->following;// Save the number of users following to use later.
       $languageData = Array();
-      foreach($this->repos as $data)
+      foreach ($unsortedRepos as $data)
       {
-        if($data->archived == false && $data->disabled == false)
+        if ($data->archived == false && $data->disabled == false)
         {
-          if(array_key_exists($data->language, $languageData))
+          if (array_key_exists($data->language, $languageData))
             $languageData[$data->language] += 1;//$data->size;
           else
             $languageData[$data->language] = 1;//$data->size;
@@ -113,7 +113,7 @@ namespace GitHubProfilePluginAPI
       $count = 0;
       foreach ($languageData as $language => $size)
       {
-        if($count < 3)
+        if ($count < $numberOfLanguages)
         {
           $this->popularLanguages .= "<span class='badge badge-light'>" . $language . "</span> ";
           $count++;
@@ -122,6 +122,8 @@ namespace GitHubProfilePluginAPI
           break;
       }
       $this->popularLanguages .= "</p>";
+      if ($numberOfLanguages == 0)
+        $this->popularLanguages = "";
       $sortedRepos = $unsortedRepos;
       usort($sortedRepos, array($this, "repo_sort"));
       if ($numberOfRepos > 0)
@@ -185,15 +187,15 @@ namespace GitHubProfilePluginAPI
         </div>
       </div>
       <div class='repos'>";
-      if($numberOfRepos > 0)
+      if ($numberOfRepos > 0)
         echo "
         <p><strong>Top " . $numberOfRepos . " Active Public Repos: </strong></p>";
       else
         echo "
         <p><strong>Active Public Repos: </strong></p>";// Echo out the values we saved in the call_github() function as formatted HTML and CSS.
-      foreach($this->repos as $data)
+      foreach ($this->repos as $data)
       {
-        if($data->archived == false && $data->disabled == false)
+        if ($data->archived == false && $data->disabled == false)
           echo "
       <div>
         <strong><a href='" . $data->html_url . "'>" . $data->name . "</a></strong>
