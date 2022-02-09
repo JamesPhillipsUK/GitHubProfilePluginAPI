@@ -21,9 +21,39 @@
 namespace GitHubProfilePluginAPI
 {
   require_once("call.php");
+
+  /**
+   * core - This contains the GitHub Profile.
+   * 
+   * @param gitHubavatarURL - the user's avatar as a URL.
+   * @param gitHubBio - the user's GitHub bio.
+   * @param gitHubCompany - the user's primary company on GitHub, if any.
+   * @param gitHubFollowers - the number of followers the user has on GitHub.
+   * @param gitHubFollowing - the number of people the user is following on GitHub.
+   * @param gitHubHTMLURL - the user's profile URL on GitHub.
+   * @param gitHubLogin - the user's GitHub Login name.
+   * @param gitHubName - the user's GitHub given name.
+   * @param gitHubPubRepos - the number of public repos the user has on GitHub.
+   * @param popularLanguages - a list of the user's most popular languages on GitHub.
+   * @param repos - an ordered array of the user's public repos.
+  **/
   class core
   {
     private $call;
+
+    //Parts to a profile
+    private $avatarURL;
+    private $bio;
+    private $company;
+    private $followers;
+    private $following;
+    private $hTMLURL;
+    private $login;
+    private $name;
+    private $publicRepos;
+    private $popularLanguages;
+    private $repos;
+
     /**
      * Constructor for the core API class.
      * @param personalAccessToken - the user's GitHub Personal Access Token.
@@ -31,9 +61,9 @@ namespace GitHubProfilePluginAPI
      **/
     public function __construct($personalAccessToken, $gitHubUsername)
     {
-      $this->$call = new call();
-      $this->$call->setPersonalAccessToken($personalAccessToken);
-      $this->$call->setUsername($gitHubUsername);
+      $this->call = new call();
+      $this->call->setPersonalAccessToken($personalAccessToken);
+      $this->call->setUsername($gitHubUsername);
     }
 
     /**
@@ -56,19 +86,19 @@ namespace GitHubProfilePluginAPI
      **/
     public function show($bootstrapVersion = 4, $numberOfRepos = 0, $numberOfLanguages = 0)
     {
-      $repos = $this->$call->call_github_repos();
-      $gitHubJSON = $this->$call->call_github();// Grab the return value of call_github().
-      $gitHubName = $gitHubJSON->name;// Save the name to use later.
-      $gitHubCompany = $gitHubJSON->company;// Save the company to use later.
-      $gitHubHTMLURL = $gitHubJSON->html_url;// Save the profile url to use later.
-      $gitHubAvatarURL = $gitHubJSON->avatar_url;// Save the avatar url to use later.
-      $gitHubLogin = $gitHubJSON->login;// Save the login name to use later.
-      $gitHubBio = $gitHubJSON->bio;// Save the user bio to use later.
-      $gitHubPubRepos = $gitHubJSON->public_repos;// Save the number of public repos to use later.
-      $gitHubFollowers = $gitHubJSON->followers;// Save the number of followers to use later.
-      $gitHubFollowing = $gitHubJSON->following;// Save the number of users following to use later.
+      $gitHubJSON = &$this->call->call_github();// Grab the return value of call_github().
+      $unsortedRepos = $this->call->call_github_repos();
+      $this->name = $gitHubJSON->name;// Save the name to use later.
+      $this->company = $gitHubJSON->company;// Save the company to use later.
+      $this->hTMLURL = $gitHubJSON->html_url;// Save the profile url to use later.
+      $this->avatarURL = $gitHubJSON->avatar_url;// Save the avatar url to use later.
+      $this->login = $gitHubJSON->login;// Save the login name to use later.
+      $this->bio = $gitHubJSON->bio;// Save the user bio to use later.
+      $this->publicRepos = $gitHubJSON->public_repos;// Save the number of public repos to use later.
+      $this->followers = $gitHubJSON->followers;// Save the number of followers to use later.
+      $this->following = $gitHubJSON->following;// Save the number of users following to use later.
       $languageData = Array();
-      foreach($repos as $data)
+      foreach($this->repos as $data)
       {
         if($data->archived == false && $data->disabled == false)
         {
@@ -79,39 +109,33 @@ namespace GitHubProfilePluginAPI
         }
       }
       arsort($languageData);
-      $popularLanguages = "<p><small>Develops with: </small>";
+      $this->popularLanguages = "<p><small>Develops with: </small>";
       $count = 0;
       foreach ($languageData as $language => $size)
       {
         if($count < 3)
         {
-          $popularLanguages .= "<span class='badge badge-light'>" . $language . "</span> ";
+          $this->popularLanguages .= "<span class='badge badge-light'>" . $language . "</span> ";
           $count++;
         }
         else
           break;
       }
-      $popularLanguages .= "</p>";
-      usort($repos, array($this, "repo_sort"));
-      $this->build_ui($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos);
+      $this->popularLanguages .= "</p>";
+      $sortedRepos = $unsortedRepos;
+      usort($sortedRepos, array($this, "repo_sort"));
+      $this->repos = $sortedRepos;
+      echo $this->name;
+      $this->build_ui($bootstrapVersion);
     }
 
     /**
      * Builds the Plugin UI.
-     * @param gitHubAvatarURL - the user's avatar as a URL.
-     * @param gitHubBio - the user's GitHub bio.
-     * @param gitHubCompany - the user's primary company on GitHub, if any.
-     * @param gitHubFollowers - the number of followers the user has on GitHub.
-     * @param gitHubFollowing - the number of people the user is following on GitHub.
-     * @param gitHubHTMLURL - the user's profile URL on GitHub.
-     * @param gitHubLogin - the user's GitHub Login name.
-     * @param gitHubName - the user's GitHub given name.
-     * @param gitHubPubRepos - the number of public repos the user has on GitHub.
-     * @param popularLanguages - a list of the user's most popular languages on GitHub.
-     * @param repos - an ordered array of the user's public repos.
+     * @param bootstrapVersion - Bootstrap 4 or 5.
      **/
-    private function build_ui($gitHubAvatarURL, $gitHubBio, $gitHubCompany, $gitHubFollowers, $gitHubFollowing, $gitHubHTMLURL, $gitHubLogin, $gitHubName, $gitHubPubRepos, $popularLanguages, $repos)
+    private function build_ui($bootstrapVersion)
     {
+        echo $this->name;
       echo "<style>
 #GitHubAPI{margin: 0 auto;}
 #GitHubAPI table, #GitHubAPI p{margin-bottom:0;}
@@ -122,16 +146,22 @@ namespace GitHubProfilePluginAPI
 <div id='GitHubAPI'>
   <section class='card'>
     <div class='card-header'>
-      <a href='" . $gitHubHTMLURL . "'><strong>" . $gitHubName . "</strong><em>&nbsp;&nbsp;" . $gitHubLogin . "</em></a>
+      <a href='" . $this->hTMLURL . "'><strong>" . $this->name . "</strong><em>&nbsp;&nbsp;" . $this->login . "</em></a>
     </div>
     <div class='card-body container-fluid'>
       <div class='row'>
         <div class='col-3'>
-          <img src='" . $gitHubAvatarURL . "' alt='GitHub Avatar' />
+          <img src='" . $this->avatarURL . "' alt='GitHub Avatar' />
         </div>
         <div class='col-9'>
-          <p><small>" . $gitHubBio . "</small></p>" . $popularLanguages . "
-          <table class='table table-responsive'>
+          <p><small>" . $this->bio . "</small></p>" . $this->popularLanguages;
+      if ($bootstrapVersion == 5)
+        echo "
+          <div class='table-responsive'><table class='table'>";
+      else
+        echo "
+          <table class='table table-responsive'>";
+      echo "
             <thead>
               <tr>
                 <th>Public Repos</th>
@@ -141,17 +171,20 @@ namespace GitHubProfilePluginAPI
             </thead>
             <tbody>
               <tr>
-                <td>" . $gitHubPubRepos . "</td>
-                <td>" . $gitHubFollowers . "</td>
-                <td>" . $gitHubFollowing . "</td>
+                <td>" . $this->publicRepos . "</td>
+                <td>" . $this->followers . "</td>
+                <td>" . $this->following . "</td>
               </tr>
             </tbody>
-          </table>
+          </table>";
+      if ($bootstrapVersion == 5)
+        echo "</div>";
+      echo "
         </div>
       </div>
       <div class='repos'>
-        <p><strong>Active Public Repos: </strong></p>";// Echo out the values we saved in the call_github() function as fromatted HTML and CSS.
-      foreach($repos as $data)
+        <p><strong>Active Public Repos: </strong></p>";// Echo out the values we saved in the call_github() function as formatted HTML and CSS.
+      foreach($this->repos as $data)
       {
         if($data->archived == false && $data->disabled == false)
           echo "
