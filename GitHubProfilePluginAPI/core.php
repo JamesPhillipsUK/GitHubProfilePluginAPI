@@ -148,7 +148,7 @@ namespace GitHubProfilePluginAPI
 #GitHubAPI .repos div{border-top: 1px solid rgba(0,0,0,.125)}
 </style>
 <div id='GitHubAPI'>
-  <section class='card'>
+  <aside class='card'>
     <div class='card-header'>
       <a href='" . $this->hTMLURL . "'><strong>" . $this->name . "</strong><em>&nbsp;&nbsp;" . $this->login . "</em></a>
     </div>
@@ -206,7 +206,7 @@ namespace GitHubProfilePluginAPI
       echo "
       </div>
     </div>
-  </section>
+  </aside>
 </div>";// Close off the UI
     }
   }
