@@ -150,7 +150,7 @@ namespace GitHubProfilePluginAPI
 <div id='GitHubAPI'>
   <aside class='card'>
     <div class='card-header'>
-      <a href='" . $this->hTMLURL . "'><strong>" . $this->name . "</strong><em>&nbsp;&nbsp;" . $this->login . "</em></a>
+      <strong>" . $this->name . "</strong>&nbsp;&nbsp;(<a href='" . $this->hTMLURL . "'><em>@" . $this->login . "</em></a>)
     </div>
     <div class='card-body container-fluid'>
       <div class='row'>
