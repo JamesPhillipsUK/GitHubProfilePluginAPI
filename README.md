@@ -1,12 +1,11 @@
 # GitHub Profile Plugin API
 
-This PHP 7 API provides a fully-responsive website plugin featuring a breakdown of a given user's GitHub profile.
-It uses PHP 7 for the backend, and Bootstrap 4 for the responsive frontend design.
+This PHP API provides a fully-responsive website plugin featuring a breakdown of a given user's GitHub profile.
 
 ## Features
 
-- Runs entirely on Server-Side.
-- Responsive design with Bootstrap 4.
+- Runs entirely on Server-Side with any version of PHP 7 or 8.
+- Responsive design with Bootstrap 4 or 5.
 - Secure data transfer through Personal Access Keys and the GitHub API.
 - Easy Setup.
 
@@ -19,20 +18,31 @@ It uses PHP 7 for the backend, and Bootstrap 4 for the responsive frontend desig
 ```PHP
 <?php
 include("GitHubProfilePluginAPI/core.php");// Include the API.
-use GitHubProfilePluginAPI\core as API;// Access the API.
+use GitHubProfilePluginAPI\core as GHPP;// Access the API.
 
 // Please store your Personal Access Token and Username outside of a web-accessible directory and call them with a script so malicious users can't get them.  Above the web root or in a file blocked by your htaccess rules are common choices.
-$api = new API("Personal Access Token", "Username");// Create an instance of the Statistics.
+$profile = new GHPP("Personal Access Token", "Username");// Create your profile.
 ?>
 ```
 
-4. Show the profile breakdown wherever you want it.
+4. Show your profile breakdown wherever you want it.
 
 ```PHP
 ...
   <div class="container">
     <div class="col-12 col-sm-10 offset-sm-1">
-<?php $api->show(); ?>
+<?php
+
+$profile->show(); 
+
+//or
+
+$bootstrapVersion = 5; //Optional, defaults to 4.
+$numberOfRepos = 5; //Optional, defaults to show all.
+$numberOfLanguages = 3; //Optional, defaults to 3.
+$profile->show($bootstrapVersion, $numberOfRepos, $numberOfLanguages); 
+
+?>
     </div>
   </div>
 ...
@@ -40,8 +50,8 @@ $api = new API("Personal Access Token", "Username");// Create an instance of the
 
 ## System Requirements
 
-- PHP 7 or above.
-- Bootstrap 4.4 or above.
+- PHP 7 or 8.
+- Bootstrap 4 or 5.
 - FontAwesome 5.11 or above.
 
 ## Example
@@ -50,7 +60,7 @@ $api = new API("Personal Access Token", "Username");// Create an instance of the
   <tr>
     <td width="25%">&nbsp;</td>
     <td width="50%">
-      <img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/master/Example.png" alt="Example" />
+      <img src="https://github.com/JamesPhillipsUK/GitHub-Profile-Web-App/blob/main/Example.png" alt="Example" />
     </td>
     <td width="25%">&nbsp;</td>
   </tr>
