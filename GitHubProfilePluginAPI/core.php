@@ -50,8 +50,11 @@ namespace GitHubProfilePluginAPI
 
     /**
      * Collates all of the necessary data to build the plugin, and calls build_ui() to do so.
+     * @param bootstrapVersion - Takes "4" or "5" to use Bootstrap 4 or 5.
+     * @param numberOfRepos - Number of repos to display, 0 shows all.
+     * @param numberOfLanguages - Number of languages to display, 0 shows all.
      **/
-    public function show()
+    public function show($bootstrapVersion = 4, $numberOfRepos = 0, $numberOfLanguages = 0)
     {
       $repos = $this->$call->call_github_repos();
       $gitHubJSON = $this->$call->call_github();// Grab the return value of call_github().
