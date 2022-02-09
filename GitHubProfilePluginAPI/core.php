@@ -124,18 +124,20 @@ namespace GitHubProfilePluginAPI
       $this->popularLanguages .= "</p>";
       $sortedRepos = $unsortedRepos;
       usort($sortedRepos, array($this, "repo_sort"));
-      $this->repos = $sortedRepos;
-      echo $this->name;
-      $this->build_ui($bootstrapVersion);
+      if ($numberOfRepos > 0)
+        $this->repos = array_splice($sortedRepos, 0, $numberOfRepos);
+      else
+        $this->repos = $sortedRepos;
+      $this->build_ui($bootstrapVersion, $numberOfRepos);
     }
 
     /**
      * Builds the Plugin UI.
      * @param bootstrapVersion - Bootstrap 4 or 5.
+     * @param numberOfRepos - the number of Repos to show.
      **/
-    private function build_ui($bootstrapVersion)
+    private function build_ui($bootstrapVersion, $numberOfRepos)
     {
-        echo $this->name;
       echo "<style>
 #GitHubAPI{margin: 0 auto;}
 #GitHubAPI table, #GitHubAPI p{margin-bottom:0;}
@@ -182,7 +184,12 @@ namespace GitHubProfilePluginAPI
       echo "
         </div>
       </div>
-      <div class='repos'>
+      <div class='repos'>";
+      if($numberOfRepos > 0)
+        echo "
+        <p><strong>Top " . $numberOfRepos . " Active Public Repos: </strong></p>";
+      else
+        echo "
         <p><strong>Active Public Repos: </strong></p>";// Echo out the values we saved in the call_github() function as formatted HTML and CSS.
       foreach($this->repos as $data)
       {
