@@ -9,7 +9,9 @@ This PHP API provides a fully-responsive website plugin featuring a breakdown of
 - Secure data transfer through Personal Access Keys and the GitHub API.
 - Easy Setup.
 
-## Installation
+## How to Use
+
+### Example Usage
 
 1. Generate a Personal Access Token for GitHub
 2. Save the GitHubProfilePluginAPI Directory
@@ -47,6 +49,10 @@ $profile->show($bootstrapVersion, $numberOfRepos, $numberOfLanguages);
   </div>
 ...
 ```
+
+### API Documentation
+
+View the complete API documentation here: [jamesphillipsuk.github.io/GitHubProfilePluginAPI](https://jamesphillipsuk.github.io/GitHubProfilePluginAPI/).
 
 ## System Requirements
 
