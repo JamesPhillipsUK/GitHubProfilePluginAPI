@@ -1,24 +1,15 @@
-# Contributing to the GitHub Profile Plugin API
+# Contributing
 
-## How we Talk
+When contributing, please first discuss the change you wish to make via an [issue](https://github.com/JamesPhillipsUK/GitHubProfilePluginAPI/issues/new) before making a change.
 
-All converstaion for this API on GitHub, whether it's Pull Requests, Issues, Comments, anything... must follow these simple guidelines:
+## Pull Request Process
 
-- Simple: We talk in clear English, so we can be understood by as many people as possible.
-- Professional: We talk in a professional manner - calm and collected, never rude or mean.
-- Welcoming: We talk in a way that welcomes all developers, no matter how experienced.
-
-## How to Contribute
-
-- Please make changes on your own fork.
-- Test your changes out before implementing them.
-- Ensure your code meets the style guidelines.
-- Submit a Pull Request to the relevant branch.
-- If your code meets the style guidelines, and passes my tests, I'll consider merging it in.
+1. Fork the repository to work on.
+2. Create your changes, ensure they meet the style guidelines below, and test them.
+3. Increase the version numbers in any files containing an @version tag to the new version that this Pull Request would represent.
+4. Open a Pull Request and request a reviewer to merge it for you.
 
 ## Style Guidelines
-
-Use these guidelines to ensure our code is as uniform and easy-to-read as possible.
 
 ### Files and Directories
 
@@ -73,7 +64,7 @@ function this_funtion()
 }
 ```
 
-- When writing PHP code, use long tags, not short tags.  Short tags only work when they're enabled by server admins, and are scheduled to be deprecated in a future update to PHP.
+- When writing PHP code, use long tags, not short tags.  Short tags only work when they're enabled by server admins, and are deprecated.  These tags should have their own line.
 
 ```php
 <?php
@@ -85,8 +76,6 @@ function this_funtion()
 ?>
 ```
 
-- When writing PHP code, code blocks open with ```<?php``` on it's own line, and close with ```?>``` on it's own line.
-
 ```php
 <?php
 do_this(0);
@@ -97,7 +86,7 @@ do_that(9);
 do_that(9); ?>// Incorrect.
 ```
 
-- an exception the the above rule can be made when you're only calling one statement.  Then your PHP code can go on one line.
+- An exception the the above rule can be made when you're only calling one statement.  Then your PHP code can go on one line.
 
 ```php
 <p><?php text(); ?></p>
@@ -105,14 +94,14 @@ do_that(9); ?>// Incorrect.
 
 #### Commenting Your Code
 
-- Add meaningful comments to clarify what your code is trying to achieve.
-- Use JavaDoc-style code comments where possible for all methods/functions to document your code.
+- Use meaningful inline comments where you feel your code may be unclear on it's own.  Clean code needs minimal comments.
+- Use PHPDoc comments where possible to document your methods.
 
 ```php
 /**
  * This squares a given input, then adds 5.
- * @param input - The inputted number to preform this functon on.
- * @return output - The resultant number after this function.
+ * @param    int    $input    The inputted number to preform this functon on.
+ * @return   int    $output   The resultant number after this function.
  **/
 function square_then_add_five($input)
 {
@@ -122,8 +111,17 @@ function square_then_add_five($input)
 }
 ```
 
-- Use inline comments wherever you feel your code may be unclear on it's own.
+## Code of Conduct
+
+As contributors to this project, we seek to ensure the community is free of harrassment for everyone; regardless of who they may be, their background, or any of their characteristics.
+
+We interact in ways that are open, welcoming, diverse, inclusive, and healthy.
+
+We follow the [Software Engineering Code of Ethics and Professional Practice](https://ethics.acm.org/code-of-ethics/software-engineering-code/).
 
 ## Thanks
 
-- This was blatantly copied and cut down from BlogDraw Beta 2.1, Version 0.0.1's CONTRIBUTING.md.
+This was inspired by:
+
+- BlogDraw [Beta 2.1, Version 0.0.1's CONTRIBUTING.md](https://github.com/BlogDraw/BlogDraw/releases/tag/v0.0.1-beta-2.1).
+- PurpleBooth's [Good Contributing template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
