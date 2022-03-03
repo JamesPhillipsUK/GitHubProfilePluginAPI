@@ -65,9 +65,9 @@ namespace GitHubProfilePluginAPI
      * 
      * @param    object    $a    One repo structure.
      * @param    object    $b    Another repo structure.
-     * @return   bool            Signifies to usort the ordering for the two elements.
+     * @return   int             Signifies to usort the ordering for the two elements.
      **/
-    private function repo_sort(object $a, object $b): bool
+    private function repo_sort(object $a, object $b): int
     {
       return ($a->pushed_at > $b->pushed_at) ? -1 : 1;
     }

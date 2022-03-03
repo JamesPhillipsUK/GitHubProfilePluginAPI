@@ -54,7 +54,7 @@ namespace GitHubProfilePluginAPI
     /**
      * This method pulls the user's GitHub Profile data from the GitHub API.
      * 
-     * @return object    The data as JSON, stored in a PHP object.
+     * @return    object    The data as JSON, stored in a PHP object.
      **/
     public function call_github(): object
     {
@@ -75,9 +75,9 @@ namespace GitHubProfilePluginAPI
     /**
      * This function pulls the user's GitHub repository data.
      * 
-     * @return object    The data as JSON, stored in a PHP object.
+     * @return    array    The data as JSON, stored in a PHP object.
      **/
-    public function call_github_repos(): object
+    public function call_github_repos(): array
     {
       $gitHubURL = "https://api.github.com/users/" . $this->gitHubUsername . "/repos";// The GitHub URL for the user's repos.
       $gitHubHeaders = array('User-Agent: JamesPhillipsUK-GitHubProfilePluginAPI','Authorization: token ' . $this->personalAccessToken . '',);
