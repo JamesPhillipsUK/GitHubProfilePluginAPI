@@ -25,6 +25,9 @@ namespace GitHubProfilePluginAPI
 {
   /**
    * call handles calls to and from the GitHub API
+   * 
+   * @param    string    $personalAccessToken    The user's GitHub Personal Access Token.
+   * @param    string    $gitHubUsername         The user's GitHub Username.
    **/
   class call
   {
@@ -75,7 +78,7 @@ namespace GitHubProfilePluginAPI
     /**
      * This function pulls the user's GitHub repository data.
      * 
-     * @return    array    The data as JSON, stored in a PHP object.
+     * @return    array    The data as JSON, stored in a PHP array.
      **/
     public function call_github_repos(): array
     {

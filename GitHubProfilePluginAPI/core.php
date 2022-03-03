@@ -1,6 +1,6 @@
 <?php
 /**
- * GitHub Profile Plugin API, Version 2.2.
+ * GitHub Profile Plugin API
  *
  * GitHub Profile Plugin API is designed to give a rundown of your GitHub Profile on your PHP Website
  * 
@@ -27,6 +27,18 @@ namespace GitHubProfilePluginAPI
 
   /**
    * core contains the GitHub Profile, and builds the plugin UI.
+   *
+   * @param    string    $gitHubavatarURL    The user's avatar as a URL.
+   * @param    string    $gitHubBio          The user's GitHub bio.
+   * @param    string    $gitHubCompany      The user's primary company on GitHub, if any.
+   * @param    int       $gitHubFollowers    The number of followers the user has on GitHub.
+   * @param    int       $gitHubFollowing    The number of people the user is following on GitHub.
+   * @param    string    $gitHubHTMLURL      The user's profile URL on GitHub.
+   * @param    string    $gitHubLogin        The user's GitHub Login name.
+   * @param    string    $gitHubName         The user's GitHub given name.
+   * @param    int       $gitHubPubRepos     The number of public repos the user has on GitHub.
+   * @param    string    $popularLanguages   A list of the user's most popular languages on GitHub.
+   * @param    array     $repos              An ordered array of the user's public repos.
   **/
   class core
   {
