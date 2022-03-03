@@ -1,10 +1,10 @@
 <?php
 /**
- * GitHub Profile Plugin API, Version 2.1.1.
+ * GitHub Profile Plugin API, Version 2.2.
  *
  * GitHub Profile Plugin API is designed to give a rundown of your GitHub Profile on your PHP Website
- * Copyright (C) 2017 - 2022  Jesse Phillips <james@jamesphillipsuk.com>
- *
+ * 
+ * @copyright (C) 2017 - 2022  Jesse Phillips <james@jamesphillipsuk.com>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -17,25 +17,16 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author    Jesse Phillips    <james@jamesphillipsuk.com>
+ * @version   2.2.0
+ * @since     2.1.0
  **/
 namespace GitHubProfilePluginAPI
 {
   require_once("call.php");
 
   /**
-   * core - This contains the GitHub Profile.
-   * 
-   * @param gitHubavatarURL - the user's avatar as a URL.
-   * @param gitHubBio - the user's GitHub bio.
-   * @param gitHubCompany - the user's primary company on GitHub, if any.
-   * @param gitHubFollowers - the number of followers the user has on GitHub.
-   * @param gitHubFollowing - the number of people the user is following on GitHub.
-   * @param gitHubHTMLURL - the user's profile URL on GitHub.
-   * @param gitHubLogin - the user's GitHub Login name.
-   * @param gitHubName - the user's GitHub given name.
-   * @param gitHubPubRepos - the number of public repos the user has on GitHub.
-   * @param popularLanguages - a list of the user's most popular languages on GitHub.
-   * @param repos - an ordered array of the user's public repos.
+   * core contains the GitHub Profile, and builds the plugin UI.
   **/
   class core
   {
@@ -56,10 +47,11 @@ namespace GitHubProfilePluginAPI
 
     /**
      * Constructor for the core API class.
-     * @param personalAccessToken - the user's GitHub Personal Access Token.
-     * @param gitHubUsername - the user's GitHub Username.
+     * 
+     * @param    string    $personalAccessToken    The user's GitHub Personal Access Token.
+     * @param    string    $gitHubUsername         The user's GitHub Username.
      **/
-    public function __construct($personalAccessToken, $gitHubUsername)
+    public function __construct(string $personalAccessToken, string $gitHubUsername)
     {
       $this->call = new call();
       $this->call->setPersonalAccessToken($personalAccessToken);
@@ -68,35 +60,38 @@ namespace GitHubProfilePluginAPI
 
     /**
      * A recursive array sorting algorithm used by usort in show().
+     * 
      * Sorts two repos by most recent push.
-     * @param a - one repo structure.
-     * @param b - another repo structure.
-     * @return array - The repos.
+     * 
+     * @param    object    $a    One repo structure.
+     * @param    object    $b    Another repo structure.
+     * @return   bool            Signifies to usort the ordering for the two elements.
      **/
-    private function repo_sort($a, $b)
+    private function repo_sort(object $a, object $b): bool
     {
       return ($a->pushed_at > $b->pushed_at) ? -1 : 1;
     }
 
     /**
      * Collates all of the necessary data to build the plugin, and calls build_ui() to do so.
-     * @param bootstrapVersion - Takes "4" or "5" to use Bootstrap 4 or 5.
-     * @param numberOfRepos - Number of repos to display, 0 shows all.
-     * @param numberOfLanguages - Number of languages to display, 0 shows all.
+     * 
+     * @param    int    $bootstrapVersion    Takes "4" or "5" to use Bootstrap 4 or 5.
+     * @param    int    $numberOfRepos       Number of repos to display, 0 shows all.
+     * @param    int    $numberOfLanguages   Number of languages to display, 0 shows all.
      **/
-    public function show($bootstrapVersion = 4, $numberOfRepos = 0, $numberOfLanguages = 3)
+    public function show(int $bootstrapVersion = 4, int $numberOfRepos = 0, int $numberOfLanguages = 3): void
     {
       $gitHubJSON = &$this->call->call_github();// Grab the return value of call_github().
       $unsortedRepos = $this->call->call_github_repos();
-      $this->name = $gitHubJSON->name;// Save the name to use later.
-      $this->company = $gitHubJSON->company;// Save the company to use later.
-      $this->hTMLURL = $gitHubJSON->html_url;// Save the profile url to use later.
-      $this->avatarURL = $gitHubJSON->avatar_url;// Save the avatar url to use later.
-      $this->login = $gitHubJSON->login;// Save the login name to use later.
-      $this->bio = $gitHubJSON->bio;// Save the user bio to use later.
-      $this->publicRepos = $gitHubJSON->public_repos;// Save the number of public repos to use later.
-      $this->followers = $gitHubJSON->followers;// Save the number of followers to use later.
-      $this->following = $gitHubJSON->following;// Save the number of users following to use later.
+      $this->name = $gitHubJSON->name;// Save the name
+      $this->company = $gitHubJSON->company;// Save the company.
+      $this->hTMLURL = $gitHubJSON->html_url;// Save the profile url.
+      $this->avatarURL = $gitHubJSON->avatar_url;// Save the avatar url.
+      $this->login = $gitHubJSON->login;// Save the login name.
+      $this->bio = $gitHubJSON->bio;// Save the user bio.
+      $this->publicRepos = $gitHubJSON->public_repos;// Save the number of public repos.
+      $this->followers = $gitHubJSON->followers;// Save the number of followers.
+      $this->following = $gitHubJSON->following;// Save the number of users following.
       $languageData = Array();
       foreach ($unsortedRepos as $data)
       {
@@ -135,10 +130,11 @@ namespace GitHubProfilePluginAPI
 
     /**
      * Builds the Plugin UI.
-     * @param bootstrapVersion - Bootstrap 4 or 5.
-     * @param numberOfRepos - the number of Repos to show.
+     * 
+     * @param    int    $bootstrapVersion    Bootstrap 4 or 5.
+     * @param    int    $numberOfRepos       The number of Repos to show.
      **/
-    private function build_ui($bootstrapVersion, $numberOfRepos)
+    private function build_ui(int $bootstrapVersion, int $numberOfRepos):void
     {
       echo "<style>
 #GitHubAPI{margin: 0 auto;}
